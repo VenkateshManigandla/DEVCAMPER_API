@@ -12,13 +12,16 @@ const {
 
 const router = express.Router()
 
+const { protect } = require('../middleware/auth')
+const Bootcamp = require('../models/Bootcamp')
+
 router.route('/radius/:zipcode/:distance').get(getBootcampInRadius)
 
-router.route('/:id/photo').put(bootcampPhotoUpload)
+router.route('/:id/photo').put( bootcampPhotoUpload)
 
 router.route('/')
     .get(getBootcamps)
-    .post(createBootcamp)
+    .post(protect, createBootcamp)
 
 router.route('/:id') 
     .get(getBootcamp)
